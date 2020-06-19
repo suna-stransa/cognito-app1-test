@@ -1,56 +1,18 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {AuthContext} from './AuthContext';
 
 function App() {
-
-  //cookieある時
-  useEffect(() => {
-    fetch('https://tooap4mvb3.execute-api.ap-northeast-1.amazonaws.com/demo', {
-      method: 'POST',
-      body: JSON.stringify({ "sessionId": "123" }),
-      credentials: 'include'
-    })
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);
-    })
-  }, []);
-
-  //cookieない時
-  const apiHandler = () => {
-    fetch('https://tooap4mvb3.execute-api.ap-northeast-1.amazonaws.com/demo', {
-      method: 'POST',
-      body: JSON.stringify({ "sessionId": "123", "authKey": "uuid" }),
-      credentials: 'include',
-    })
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  };
+  const {logout, token} = React.useContext(AuthContext);
 
   return (
-    <div className="App">
+    token ? <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit src/App.js and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React 2
-        </a>
-        <button onClick={() => apiHandler()}>API送信</button>
+        <h1>App A</h1>
+        <h1>Authenticated!</h1>
+        <button onClick={logout}>Sign out</button>
       </header>
-    </div>
+    </div> : <></>
   );
 }
 export default App;

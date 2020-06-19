@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "cognitoapp1test02f835f7_identitypool_02f835f7",
+    "identityPoolName": "cognitotesta6ac1da8_identitypool_a6ac1da8",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "cognit02f835f7",
-    "userPoolName": "cognitoapp1test02f835f7_userpool_02f835f7",
+    "resourceNameTruncated": "cognita6ac1da8",
+    "userPoolName": "cognitotesta6ac1da8_userpool_a6ac1da8",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "cognit02f835f7_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "cognita6ac1da8_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "02f835f7",
-    "resourceName": "cognitoapp1test02f835f7",
+    "sharedId": "a6ac1da8",
+    "resourceName": "cognitotesta6ac1da8",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
