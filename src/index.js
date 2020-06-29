@@ -6,17 +6,42 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AuthContextProvider from './AuthContext';
 
+// import { AUTH_TYPE } from 'aws-appsync';
+// import { ApolloProvider } from 'react-apollo'
+// import { InMemoryCache } from "apollo-cache-inmemory";
+// import { ApolloLink } from 'apollo-link';
+// import { createAuthLink } from 'aws-appsync-auth-link';
+// import { createHttpLink } from 'apollo-link-http';
+// import ApolloClient from 'apollo-client';
+
+// const link = ApolloLink.from([
+//   createAuthLink({
+//     url: 'https://ynuqdr644bhadp7iwu7utqnjei.appsync-api.ap-northeast-1.amazonaws.com/graphql',
+//     region: 'ap-northeast-1',
+//     auth: {
+//       type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
+//       jwtToken: token,
+//     },
+//   }),
+//   createHttpLink({ uri: 'https://ynuqdr644bhadp7iwu7utqnjei.appsync-api.ap-northeast-1.amazonaws.com/graphql', })
+// ]);
+// const client = new ApolloClient({
+//   link,
+//   cache: new InMemoryCache()
+// });
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact={true} path="/" component={App} />
-          <Route component={App} />
-        </Switch>
-      </BrowserRouter>
-    </AuthContextProvider>
+    {/* <ApolloProvider client={client}> */}
+      <AuthContextProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact={true} path="/" component={App} />
+            <Route component={App} />
+          </Switch>
+        </BrowserRouter>
+      </AuthContextProvider>
+    {/* </ApolloProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
