@@ -14,24 +14,6 @@ const AuthContextProvider = (props) => {
     window.location.href = `${process.env.REACT_APP_AUTHENTICATOR_URL}/logout/${encodeURIComponent('http://localhost:3001')}`
   }
 
-  // const handleCognitoLogin = async (sessionId, authKey, username) => {
-  //   try {
-  //     const user = await Auth.signIn(username)
-
-  //     //第二引数がchallengeResponse、LambdaでchallengeAnswerで受け取る。
-  //     //第三引数がClientMetadata。認証アプリで受け取ったsessionIdを渡すことでこれをキーにしてdynamoにアクセスする。
-  //     //そのレスポンスのauthKeyと第二引数のauthKeyが一致したら認証成功でtokenがもらえる。
-  //     const customUser = await  Auth.sendCustomChallengeAnswer(user, authKey, {
-  //       sessionId,
-  //     })
-  //     setToken(customUser.signInUserSession.accessToken.jwtToken)
-  //     return false;
-  //   } catch(err) {
-  //     console.log(err);
-  //     return 'Some error';
-  //   }
-  // }
-
   useEffect(() => {
     const isSSOAuthenticated = document.cookie.includes("sso-authenticated=true");
 
@@ -96,27 +78,14 @@ const AuthContextProvider = (props) => {
       })
       .then(res => res.json())
       .then(res => {
-        setToken(res.accessToken);
+        if (res.AccessToken) {
+          setToken(res.AccessToken);
+        } else {
+          //cookieのsessionIdがない場合はレスポンスでredirect: "redirect"が返ってくるので、認証アプリにリダイレクト
+          window.location.href = `${process.env.REACT_APP_AUTHENTICATOR_URL}/login/${encodeURIComponent('http://localhost:3001')}`
+        }
       });
     }
-
-    // sso-authenticated=trueの場合
-    // fetch('https://tooap4mvb3.execute-api.ap-northeast-1.amazonaws.com/demo/', {
-    //   method: 'POST',
-    //   body: JSON.stringify({'sessionId': ''}), //cookieにセットされてるsessionIdでAPI処理されるのでbodyは必要ない
-    //   credentials: 'include',
-    // })
-    // .then(res => res.json())
-    // .then(res => {
-    //   const tokens = {...res.Item};
-    //   if(!tokens.sessionId) {
-    //     window.location.href = `${process.env.REACT_APP_AUTHENTICATOR_URL}/login/${encodeURIComponent('http://localhost:3001')}`
-    //   }
-    //   handleCognitoLogin(tokens.sessionId, tokens.authKey, tokens.username);
-    // })
-    // .catch(err => {
-    //   window.location.href = `${process.env.REACT_APP_AUTHENTICATOR_URL}/login/${encodeURIComponent('http://localhost:3001')}`
-    // })
   }, [token])
 
   return (
